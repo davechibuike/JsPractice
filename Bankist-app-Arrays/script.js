@@ -59,20 +59,41 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+const displayMovements = function (movements) {
+  containerMovements.innerHTML = '';
+
+  movements.forEach((mov, i) => {
+    const type = mov > 0 ? 'deposit' : 'withdrawal';
+
+    const html = `
+        <div class="movements__row">
+          <div class="movements__type movements__type--${type}">${
+      i + 1
+    } ${type}</div>
+          <div class="movements__value">${mov}</div>
+        </div>
+    `;
+
+    containerMovements.insertAdjacentHTML('afterbegin', html);
+  });
+};
+
+displayMovements(account1.movements);
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
 
-// const currencies = new Map([
-//   ['USD', 'United States dollar'],
-//   ['EUR', 'Euro'],
-//   ['GBP', 'Pound sterling'],
-// ]);
+const currencies = new Map([
+  ['USD', 'United States dollar'],
+  ['EUR', 'Euro'],
+  ['GBP', 'Pound sterling'],
+]);
 
-// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 // SLICE METHOD
-let arr = ['a', 'b', 'c', 'd', 'e', 'f', 'g'];
+// let arr = ['a', 'b', 'c', 'd', 'e', 'f', 'g'];
 // console.log(arr.slice(2));
 // console.log(arr.slice(2, 4));
 // console.log(arr.slice(-2));
@@ -90,9 +111,9 @@ let arr = ['a', 'b', 'c', 'd', 'e', 'f', 'g'];
 
 // Reverse
 // this mutates the original array
-arr = ['a', 'b', 'c', 'd', 'e'];
-const arr2 = ['j', 'i', 'h', 'g', 'f'];
-const testArr = [23, 45, 67, 87, 9, 1, 2, 34, 400];
+// arr = ['a', 'b', 'c', 'd', 'e'];
+// const arr2 = ['j', 'i', 'h', 'g', 'f'];
+// const testArr = [23, 45, 67, 87, 9, 1, 2, 34, 400];
 // testArr.sort(function (a, b) {
 //   return b - a;
 // });
@@ -102,7 +123,7 @@ const testArr = [23, 45, 67, 87, 9, 1, 2, 34, 400];
 // console.log(arr2);
 
 // CONCAT
-const letters = arr.concat(arr2);
+// const letters = arr.concat(arr2);
 // console.log(letters);
 
 // JOIN
@@ -127,7 +148,7 @@ const letters = arr.concat(arr2);
 //LOOPING forEach
 //
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 // console.log(movements);
 // movements.sort((a, b) => b - a);
@@ -188,29 +209,29 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 //   // console.log(arr);
 // });
 
-const currencies = new Map([
-  ['USD', 'United States dollar'],
-  ['EUR', 'Euro'],
-  ['GBP', 'Pound sterling'],
-]);
+// const currencies = new Map([
+//   ['USD', 'United States dollar'],
+//   ['EUR', 'Euro'],
+//   ['GBP', 'Pound sterling'],
+// ]);
 
 // looping map with forEach Map
-currencies.forEach(function (value, key, map) {
-  console.log(`${key}: ${value}`);
-});
+// currencies.forEach(function (value, key, map) {
+//   console.log(`${key}: ${value}`);
+// });
 
 // Set
-const currenciesUnique = new Set([
-  'USD',
-  'EUR',
-  'EUR',
-  'GBP',
-  'GBP',
-  'USD',
-  'EUR',
-]);
+// const currenciesUnique = new Set([
+//   'USD',
+//   'EUR',
+//   'EUR',
+//   'GBP',
+//   'GBP',
+//   'USD',
+//   'EUR',
+// ]);
 
 // currenciesUnique.forEach(function (value, key, set) {
-currenciesUnique.forEach(function (value, _, set) {
-  console.log(`${value}: ${value}`);
-});
+// currenciesUnique.forEach(function (value, _, set) {
+//   console.log(`${value}: ${value}`);
+// });
