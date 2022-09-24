@@ -264,10 +264,15 @@ const checkDogs = function (dogsJulia, dogsKate) {
   const combinedDogData = [...copyJuliaCorrected, ...dogsKate];
 
   combinedDogData.forEach((age, i) => {
-    const peerGroup = age >= 3 ? 'adult' : 'puppy';
-    console.log(
-      `Dog number ${i + 1} is an ${peerGroup}, and is ${age} years old`
-    );
+    // const peerGroup = age >= 3 ? 'adult' : 'puppy';
+    // console.log(
+    //   `Dog number ${i + 1} is an ${peerGroup}, and is ${age} years old`
+    // );
+    if (age >= 3) {
+      console.log(`Dog number ${i + 1} is an adult, and is ${age} years old`);
+    } else {
+      console.log(`Dog number ${i + 1} is still a puppy 🐶`);
+    }
   });
 };
 
