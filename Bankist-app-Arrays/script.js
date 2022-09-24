@@ -293,12 +293,11 @@ for (const mov of movements) movementsUsdFor.push(mov * eurToUsd);
 console.log(movementsUsdFor);
 
 // more with map
-const movementsDiscription = movements.map((mov, i, arr) => {
-  if (mov > 0) {
-    return `Movenment ${i + 1}: You Deposited ${mov}`;
-  } else {
-    return `Movenment ${i + 1}: You Withdrew ${Math.abs(mov)}`;
-  }
-});
+const movementsDiscription = movements.map(
+  (mov, i) =>
+    `Movenment ${i + 1}: You ${mov > 0 ? 'Deposited' : 'Withdrew'} ${Math.abs(
+      mov
+    )}`
+);
 
 console.log(movementsDiscription);
