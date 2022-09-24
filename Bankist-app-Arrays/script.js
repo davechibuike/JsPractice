@@ -90,7 +90,7 @@ const currencies = new Map([
   ['GBP', 'Pound sterling'],
 ]);
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 // SLICE METHOD
 // let arr = ['a', 'b', 'c', 'd', 'e', 'f', 'g'];
@@ -253,27 +253,52 @@ GOOD LUCK 😀
 */
 
 // solution
-const checkDogs = function (dogsJulia, dogsKate) {
-  //using just slice
-  // const copyJuliaCorrected = dogsJulia.slice(1, -2);
+// const checkDogs = function (dogsJulia, dogsKate) {
+//   //using just slice
+//   // const copyJuliaCorrected = dogsJulia.slice(1, -2);
 
-  //using slice to copy the array and using splice to mutate array
-  const copyJuliaCorrected = dogsJulia.slice();
-  copyJuliaCorrected.splice(0, 1);
-  copyJuliaCorrected.splice(-2);
-  const combinedDogData = [...copyJuliaCorrected, ...dogsKate];
+//   //using slice to copy the array and using splice to mutate array
+//   const copyJuliaCorrected = dogsJulia.slice();
+//   copyJuliaCorrected.splice(0, 1);
+//   copyJuliaCorrected.splice(-2);
+//   const combinedDogData = [...copyJuliaCorrected, ...dogsKate];
 
-  combinedDogData.forEach((age, i) => {
-    // const peerGroup = age >= 3 ? 'adult' : 'puppy';
-    // console.log(
-    //   `Dog number ${i + 1} is an ${peerGroup}, and is ${age} years old`
-    // );
-    if (age >= 3) {
-      console.log(`Dog number ${i + 1} is an adult, and is ${age} years old`);
-    } else {
-      console.log(`Dog number ${i + 1} is still a puppy 🐶`);
-    }
-  });
-};
+//   combinedDogData.forEach((age, i) => {
+//     // const peerGroup = age >= 3 ? 'adult' : 'puppy';
+//     // console.log(
+//     //   `Dog number ${i + 1} is an ${peerGroup}, and is ${age} years old`
+//     // );
+//     if (age >= 3) {
+//       console.log(`Dog number ${i + 1} is an adult, and is ${age} years old`);
+//     } else {
+//       console.log(`Dog number ${i + 1} is still a puppy 🐶`);
+//     }
+//   });
+// };
 
-checkDogs([3, 5, 2, 12, 7], [4, 1, 15, 8, 3]);
+// checkDogs([3, 5, 2, 12, 7], [4, 1, 15, 8, 3]);
+
+//Using map
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const eurToUsd = 1.1;
+
+const movementsUsd = movements.map(mov => mov * eurToUsd);
+
+console.log(movements);
+console.log(movementsUsd);
+
+// Doing same thing with a for loop
+const movementsUsdFor = [];
+for (const mov of movements) movementsUsdFor.push(mov * eurToUsd);
+console.log(movementsUsdFor);
+
+// more with map
+const movementsDiscription = movements.map((mov, i, arr) => {
+  if (mov > 0) {
+    return `Movenment ${i + 1}: You Deposited ${mov}`;
+  } else {
+    return `Movenment ${i + 1}: You Withdrew ${Math.abs(mov)}`;
+  }
+});
+
+console.log(movementsDiscription);
