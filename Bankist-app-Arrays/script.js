@@ -324,6 +324,7 @@ GOOD LUCK 😀
 // console.log(movementsDiscription);
 
 // console.log(movements);
+
 // // Filter method
 // const deposits = movements.filter(mov => mov > 0);
 // console.log(deposits);
@@ -355,14 +356,14 @@ GOOD LUCK 😀
 
 // more on reduce
 //get the max in the movements array
-console.log(movements);
+// console.log(movements);
 
 const max = movements.reduce((acc, mov) => {
   if (acc > mov) return acc;
   else return mov;
 }, movements[0]);
 
-console.log(max);
+// console.log(max);
 
 ///////////////////////////////////////
 // Coding Challenge #2
@@ -378,3 +379,22 @@ TEST DATA 1: [5, 2, 4, 1, 15, 8, 3]
 TEST DATA 2: [16, 6, 10, 5, 6, 1, 4]
 GOOD LUCK 😀
 */
+
+const calcAverageHumanAge = function (ages) {
+  const humanAge = ages.map(age => (age <= 2 ? age * 2 : 16 + age * 4));
+
+  const adults = humanAge.filter(age => age > 18);
+  // method 1
+  // const averageAge = adults.reduce((acc, current, i, arr) => {
+  //   return acc + current / arr.length;
+  // }, 0);
+
+  // method 2
+  const averageAge = adults.reduce((acc, age) => acc + age, 0) / adults.length;
+
+  console.log(averageAge);
+  return averageAge;
+};
+
+calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]);
+calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]);
