@@ -82,17 +82,18 @@ displayMovements(account1.movements);
 
 // Computing Usernames
 // username consist of the first alphabet of each usernames
-const createUserNames = function (user) {
-  const userName = user
-    .toLocaleLowerCase()
-    .split(' ')
-    .map(name => name[0])
-    .join('');
-
-  return userName;
+const createUserNames = function (accs) {
+  accs.forEach(function (acc) {
+    acc.userName = acc.owner
+      .toLowerCase()
+      .split(' ')
+      .map(name => name[0])
+      .join('');
+  });
 };
 
-console.log(createUserNames(account3.owner));
+createUserNames(accounts);
+console.log(accounts);
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
@@ -315,3 +316,27 @@ GOOD LUCK 😀
 // );
 
 // console.log(movementsDiscription);
+
+console.log(movements);
+// // Filter method
+// const deposits = movements.filter(mov => mov > 0);
+// console.log(deposits);
+
+// // doing same thing with a for of loop // just to appreciate filter method
+// const depositsFor = [];
+// for (const mov of movements) if (mov > 0) depositsFor.push(mov);
+// console.log(depositsFor);
+
+// // challenge
+// // create same thing but for withdrawals
+// const withdrawals = movements.filter(mov => mov < 0);
+// console.log(withdrawals);
+
+// Reduce method
+// Accumulator -> SNOWBALL
+const balance = movements.reduce(function (accumulator, current, i, arr) {
+  console.log(`Iteration ${i} : ${accumulator} `);
+  return accumulator + current;
+}, 0); // Setting the accumulator to 0
+
+console.log(balance);
