@@ -385,12 +385,13 @@ const calcAverageHumanAge = function (ages) {
 
   const adults = humanAge.filter(age => age > 18);
   // method 1
-  // const averageAge = adults.reduce((acc, current, i, arr) => {
-  //   return acc + current / arr.length;
-  // }, 0);
+  const averageAge = adults.reduce(
+    (acc, current, i, arr) => acc + current / arr.length,
+    0
+  );
 
-  // method 2
-  const averageAge = adults.reduce((acc, age) => acc + age, 0) / adults.length;
+  // // method 2
+  // const averageAge = adults.reduce((acc, age) => acc + age, 0) / adults.length;
 
   console.log(averageAge);
   return averageAge;
