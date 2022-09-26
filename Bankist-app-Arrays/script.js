@@ -59,6 +59,7 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+// Displays list of transactions deposite || withdrawals
 const displayMovements = function (movements) {
   containerMovements.innerHTML = '';
 
@@ -70,7 +71,7 @@ const displayMovements = function (movements) {
           <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
-          <div class="movements__value">${mov}</div>
+          <div class="movements__value">${mov}€</div>
         </div>
     `;
 
@@ -79,6 +80,7 @@ const displayMovements = function (movements) {
 };
 displayMovements(account1.movements);
 
+// C=Calculates total Balance
 const calDisplayBalance = function (movements) {
   const balance = movements.reduce(
     (accumulator, current) => accumulator + current,
@@ -87,6 +89,30 @@ const calDisplayBalance = function (movements) {
   labelBalance.textContent = `${balance}€`;
 };
 calDisplayBalance(account1.movements);
+
+// Displays total deposite In || Out
+const displaySummary = function (movements) {
+  const incomeIn = movements
+    .filter(mov => mov > 0)
+    .reduce((acc, mov) => acc + mov, 0);
+
+  labelSumIn.textContent = `${incomeIn}€`;
+
+  const out = movements
+    .filter(mov => mov < 0)
+    .reduce((acc, mov) => acc + mov, 0);
+
+  labelSumOut.textContent = `${Math.abs(out)}€`;
+
+  const intrest = movements
+    .filter(mov => mov > 0)
+    .map(deposite => (deposite * 1.2) / 100)
+    .filter(int => int >= 1)
+    .reduce((acc, int) => acc + int, 0);
+
+  labelSumInterest.textContent = `${intrest}€`;
+};
+displaySummary(account1.movements);
 
 // Computing Usernames
 // username consist of the first alphabet of each usernames
@@ -358,10 +384,10 @@ GOOD LUCK 😀
 //get the max in the movements array
 // console.log(movements);
 
-const max = movements.reduce((acc, mov) => {
-  if (acc > mov) return acc;
-  else return mov;
-}, movements[0]);
+// const max = movements.reduce((acc, mov) => {
+//   if (acc > mov) return acc;
+//   else return mov;
+// }, movements[0]);
 
 // console.log(max);
 
@@ -397,5 +423,40 @@ const calcAverageHumanAge = function (ages) {
   return averageAge;
 };
 
-calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]);
-calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]);
+// calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]);
+// calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]);
+
+//PIPELINE
+// Chaning methods
+const eurToUsd = 1.1;
+
+const totalDepositUsd = movements
+  .filter(mov => mov > 0)
+  .map(mov => mov * eurToUsd)
+  .reduce((acc, mov) => acc + mov, 0);
+
+// console.log(totalDepositUsd);
+
+///////////////////////////////////////
+// Coding Challenge #3
+
+/* 
+Rewrite the 'calcAverageHumanAge' function from the previous challenge, but this time as an arrow function, and using chaining!
+TEST DATA 1: [5, 2, 4, 1, 15, 8, 3]
+TEST DATA 2: [16, 6, 10, 5, 6, 1, 4]
+GOOD LUCK 😀
+*/
+
+const calcAverageHumanAgeArrow = ages => {
+  const average = ages
+    .map(age => (age <= 2 ? ages * 2 : 16 + age * 4))
+    .filter(age => age > 18)
+    .reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
+
+  return average;
+};
+
+// console.log(calcAverageHumanAgeArrow([5, 2, 4, 1, 15, 8, 3]));
+// console.log(calcAverageHumanAgeArrow([16, 6, 10, 5, 6, 1, 4]));
+
+// Find method
