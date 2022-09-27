@@ -80,12 +80,9 @@ const displayMovements = function (movements) {
 };
 
 // C=Calculates total Balance
-const calDisplayBalance = function (movements) {
-  const balance = movements.reduce(
-    (accumulator, current) => accumulator + current,
-    0
-  );
-  labelBalance.textContent = `${balance}€`;
+const calDisplayBalance = function (acc) {
+  acc.balance = acc.movements.reduce((acc, cur) => acc + cur, 0);
+  labelBalance.textContent = `${acc.balance}€`;
 };
 
 // Displays total deposite In || Out
@@ -151,7 +148,7 @@ btnLogin.addEventListener('click', e => {
     displayMovements(currentAccount.movements);
 
     // Display Balance
-    calDisplayBalance(currentAccount.movements);
+    calDisplayBalance(currentAccount);
 
     //Display Summary
     displaySummary(currentAccount);
@@ -174,7 +171,9 @@ btnTransfer.addEventListener('click', e => {
     currentAccount.balance >= amount &&
     receiverAcc?.userName !== currentAccount.userName
   ) {
-    console.log('Transfer Successful');
+    // Doing the transfer
+    currentAccount.movements.push(-amount);
+    receiverAcc.movements.push(amount);
   }
 });
 
