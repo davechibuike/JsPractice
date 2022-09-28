@@ -418,7 +418,7 @@ GOOD LUCK 😀
 
 // checkDogs([3, 5, 2, 12, 7], [4, 1, 15, 8, 3]);
 
-//Using map
+//! Using map
 // const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 // const eurToUsd = 1.1;
 
@@ -458,7 +458,7 @@ GOOD LUCK 😀
 // const withdrawals = movements.filter(mov => mov < 0);
 // console.log(withdrawals);
 
-// Reduce method
+//! Reduce method
 // Accumulator -> SNOWBALL
 // const balance = movements.reduce(function (accumulator, current, i, arr) {
 //   console.log(`Iteration ${i} : ${accumulator} `);
@@ -568,7 +568,7 @@ const anyDeposite = movements.some(mov => mov > 2000);
 // console.log(anyDeposite);
 // console.log(movements.includes(-130));
 
-// EVERY array method
+//! EVERY array method
 // returns ture if all the elements in an array satisfy the condition
 // console.log(movements.every(mov => mov > 0));
 // testing with an account that has all positive values
@@ -582,4 +582,49 @@ const debit = mov => mov < 0;
 // console.log(movements.filter(deposit));
 // console.log(movements.filter(debit));
 
-// Flat and FlatMap array method
+//! Flat and FlatMap array method
+//with flat no callbacks
+// const arr = [[1, 2, 3, 4], [5, 6, 7, 8], 9, 10];
+// console.log(arr.flat()); //* result [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+// const arrDeep = [[[1, 2], 3], [4, 5, [6]], 7, 8, 9, [10]];
+// console.log(arrDeep.flat(1));
+// console.log(arrDeep.flat(2));
+
+// // example , lets get the total balance of all account movements
+// const accountMovements = accounts.map(acc => acc.movements);
+// console.log(accountMovements);
+
+// // get all movements into one array
+// const allMovements = accountMovements.flat();
+// console.log(allMovements);
+
+// // total balance of all account movements
+// const overalBalance = allMovements.reduce((acc, cur) => acc + cur, 0);
+// console.log(overalBalance);
+
+//* flat
+const overalBalance = accounts
+  .map(acc => acc.movements)
+  .flat()
+  .reduce((acc, cur) => acc + cur, 0);
+// console.log(overalBalance);
+
+//* flatmap
+const overalBalance2 = accounts
+  .flatMap(acc => acc.movements)
+  .reduce((acc, cur) => acc + cur, 0);
+// console.log(overalBalance2);
+
+//! SORT
+const owners = ['zack', 'abel', 'kester', 'clinton', 'muno', 'nick'];
+// console.log('kester'.split('').reverse());
+//  !sort mutates the array or str
+console.log(owners.sort());
+
+movements.sort((a, b) => {
+  return a - b;
+});
+console.log(movements);
+
+// console.log('kester'.split('').sort());
