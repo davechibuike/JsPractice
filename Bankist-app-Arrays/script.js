@@ -80,12 +80,9 @@ const displayMovements = function (movements) {
 };
 
 // C=Calculates total Balance
-const calDisplayBalance = function (movements) {
-  const balance = movements.reduce(
-    (accumulator, current) => accumulator + current,
-    0
-  );
-  labelBalance.textContent = `${balance}€`;
+const calDisplayBalance = function (acc) {
+  acc.balance = acc.movements.reduce((acc, cur) => acc + cur, 0);
+  labelBalance.textContent = `${acc.balance}€`;
 };
 
 // Displays total deposite In || Out
@@ -124,6 +121,18 @@ const createUserNames = function (accs) {
 };
 createUserNames(accounts);
 
+// Updates the UI
+const updateUi = function (acc) {
+  // Display Movements
+  displayMovements(acc.movements);
+
+  // Display Balance
+  calDisplayBalance(acc);
+
+  //Display Summary
+  displaySummary(acc);
+};
+
 //Implementing login
 let currentAccount;
 
@@ -147,16 +156,54 @@ btnLogin.addEventListener('click', e => {
     inputLoginUsername.value = inputLoginPin.value = '';
     inputLoginPin.blur();
 
-    // Display Movements
-    displayMovements(currentAccount.movements);
-
-    // Display Balance
-    calDisplayBalance(currentAccount.movements);
-
-    //Display Summary
-    displaySummary(currentAccount);
+    updateUi(currentAccount);
   }
 });
+
+// Implementing Transfers
+btnTransfer.addEventListener('click', e => {
+  e.preventDefault();
+
+  const amount = Number(inputTransferAmount.value);
+  const receiverAcc = accounts.find(
+    acc => acc.userName === inputTransferTo.value
+  );
+
+  inputTransferAmount.value = inputTransferTo.value = '';
+
+  if (
+    amount > 0 &&
+    receiverAcc &&
+    currentAccount.balance >= amount &&
+    receiverAcc?.userName !== currentAccount.userName
+  ) {
+    // Doing the transfer
+    currentAccount.movements.push(-amount);
+    receiverAcc.movements.push(amount);
+    //Update Ui
+    updateUi(currentAccount);
+  }
+});
+
+btnClose.addEventListener('click', e => {
+  e.preventDefault();
+
+  if (
+    inputCloseUsername.value === currentAccount.userName &&
+    Number(inputClosePin.value) === currentAccount.pin
+  ) {
+    const index = accounts.findIndex(
+      acc => acc.userName === currentAccount.userName
+    );
+
+    accounts.splice(index, 1);
+
+    // Hide UI
+    containerApp.style.opacity = 0;
+  }
+  inputCloseUsername.value = inputClosePin.value = '';
+});
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -497,3 +544,10 @@ GOOD LUCK 😀
 // console.log(accounts);
 // const account = accounts.find(acc => acc.owner === 'Kester Davis');
 // console.log(account);
+
+// SOME some array method
+// i could call some ->  any ,
+// for any value for which this  mov > 2000 condition is true .. return true
+const anyDeposite = movements.some(mov => mov > 2000);
+// console.log(anyDeposite);
+// console.log(movements.includes(-130));
