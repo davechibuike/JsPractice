@@ -185,6 +185,22 @@ btnTransfer.addEventListener('click', e => {
   }
 });
 
+// Loan functionality
+btnLoan.addEventListener('click', e => {
+  e.preventDefault();
+
+  const amount = Number(inputLoanAmount.value);
+
+  if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
+    // Add Movements
+    currentAccount.movements.push(amount);
+
+    // Update UI
+    updateUi(currentAccount);
+  }
+});
+
+// Delete Account
 btnClose.addEventListener('click', e => {
   e.preventDefault();
 
@@ -551,3 +567,19 @@ GOOD LUCK 😀
 const anyDeposite = movements.some(mov => mov > 2000);
 // console.log(anyDeposite);
 // console.log(movements.includes(-130));
+
+// EVERY array method
+// returns ture if all the elements in an array satisfy the condition
+// console.log(movements.every(mov => mov > 0));
+// testing with an account that has all positive values
+// console.log(account4.movements.every(mov => mov > 0));
+
+// seprating callBacks
+const deposit = mov => mov > 0;
+const debit = mov => mov < 0;
+// console.log(movements.some(deposit));
+// console.log(movements.every(deposit));
+// console.log(movements.filter(deposit));
+// console.log(movements.filter(debit));
+
+// Flat and FlatMap array method
