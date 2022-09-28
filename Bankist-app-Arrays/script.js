@@ -544,3 +544,10 @@ GOOD LUCK 😀
 // console.log(accounts);
 // const account = accounts.find(acc => acc.owner === 'Kester Davis');
 // console.log(account);
+
+// SOME some array method
+// i could call some ->  any ,
+// for any value for which this  mov > 2000 condition is true .. return true
+const anyDeposite = movements.some(mov => mov > 2000);
+// console.log(anyDeposite);
+// console.log(movements.includes(-130));
