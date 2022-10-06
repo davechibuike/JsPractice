@@ -193,8 +193,8 @@ btnLogin.addEventListener('click', function (e) {
     const day = `${now.getDay()}`.padStart(2, 0);
     const month = `${now.getMonth() + 1}`.padStart(2, 0);
     const year = now.getFullYear();
-    const hours = now.getHours();
-    const min = now.getMinutes();
+    const hours = `${now.getHours()}`.padStart(2, 0);
+    const min = `${now.getMinutes()}`.padStart(2, 0);
 
     labelDate.textContent = `${day}/${month}/${year} ${hours}:${min}`;
 
@@ -226,8 +226,8 @@ btnTransfer.addEventListener('click', function (e) {
     receiverAcc.movements.push(amount);
 
     //  Add Transfer Dates
-    currentAccount.movementsDates.push(new Date());
-    receiverAcc.movementsDates.push(new Date());
+    currentAccount.movementsDates.push(new Date().toISOString());
+    receiverAcc.movementsDates.push(new Date().toISOString());
 
     // Update UI
     updateUI(currentAccount);
@@ -244,7 +244,7 @@ btnLoan.addEventListener('click', function (e) {
     currentAccount.movements.push(amount);
 
     // Add loan Date
-    currentAccount.movementsDates.push(new Date());
+    currentAccount.movementsDates.push(new Date().toISOString());
 
     // Update UI
     updateUI(currentAccount);
