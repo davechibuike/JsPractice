@@ -81,19 +81,30 @@ const inputClosePin = document.querySelector('.form__input--pin');
 /////////////////////////////////////////////////
 // Functions
 
-const displayMovements = function (movements, sort = false) {
+const displayMovements = function (acc, sort = false) {
   containerMovements.innerHTML = '';
 
-  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+  const movs = sort
+    ? acc.movements.slice().sort((a, b) => a - b)
+    : acc.movements;
 
   movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
+
+    // DIsplay Dates
+    const date = new Date(acc.movementsDates[i]);
+    const day = `${date.getDay()}`.padStart(2, 0);
+    const month = `${date.getMonth() + 1}`.padStart(2, 0);
+    const year = date.getFullYear();
+
+    const displayDate = `${day}/${month}/${year}`;
 
     const html = `
       <div class="movements__row">
         <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
+        <div class="movements__date">${displayDate}</div>
         <div class="movements__value">${mov.toFixed(2)}€</div>
       </div>
     `;
@@ -142,7 +153,7 @@ createUsernames(accounts);
 
 const updateUI = function (acc) {
   // Display movements
-  displayMovements(acc.movements);
+  displayMovements(acc);
 
   // Display balance
   calcDisplayBalance(acc);
@@ -155,6 +166,11 @@ const updateUI = function (acc) {
 // Event handlers
 let currentAccount;
 
+// Fake account
+// currentAccount = account1;
+// updateUI(account1);
+// containerApp.style.opacity = 100;
+
 btnLogin.addEventListener('click', function (e) {
   // Prevent form from submitting
   e.preventDefault();
@@ -162,14 +178,25 @@ btnLogin.addEventListener('click', function (e) {
   currentAccount = accounts.find(
     acc => acc.username === inputLoginUsername.value
   );
-  console.log(currentAccount);
 
   if (currentAccount?.pin === +inputLoginPin.value) {
     // Display UI and message
     labelWelcome.textContent = `Welcome back, ${
       currentAccount.owner.split(' ')[0]
     }`;
+
     containerApp.style.opacity = 100;
+
+    // Create current Date
+    const now = new Date();
+    console.log(now);
+    const day = `${now.getDay()}`.padStart(2, 0);
+    const month = `${now.getMonth() + 1}`.padStart(2, 0);
+    const year = now.getFullYear();
+    const hours = now.getHours();
+    const min = now.getMinutes();
+
+    labelDate.textContent = `${day}/${month}/${year} ${hours}:${min}`;
 
     // Clear input fields
     inputLoginUsername.value = inputLoginPin.value = '';
@@ -198,6 +225,10 @@ btnTransfer.addEventListener('click', function (e) {
     currentAccount.movements.push(-amount);
     receiverAcc.movements.push(amount);
 
+    //  Add Transfer Dates
+    currentAccount.movementsDates.push(new Date());
+    receiverAcc.movementsDates.push(new Date());
+
     // Update UI
     updateUI(currentAccount);
   }
@@ -211,6 +242,9 @@ btnLoan.addEventListener('click', function (e) {
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
     // Add movement
     currentAccount.movements.push(amount);
+
+    // Add loan Date
+    currentAccount.movementsDates.push(new Date());
 
     // Update UI
     updateUI(currentAccount);
@@ -244,7 +278,7 @@ btnClose.addEventListener('click', function (e) {
 let sorted = false;
 btnSort.addEventListener('click', function (e) {
   e.preventDefault();
-  displayMovements(currentAccount.movements, !sorted);
+  displayMovements(currentAccount, !sorted);
   sorted = !sorted;
 });
 
@@ -347,4 +381,90 @@ labelBalance.addEventListener('click', () => {
     }
   });
 });
+
+
+//! Numeric seprators
+///////////////////////////////////////
+
+287,460,000,000
+const diameter = 287_460_000_000;
+console.log(diameter);
+const price = 345_99;
+console.log(price);
+const transferFee1 = 15_00;
+const transferFee2 = 1_500;
+const PI = 3.1415;
+console.log(PI);
+console.log(Number('230_000'));
+console.log(parseInt('230_000'));
+
+
+// Big Int
+console.log(2 ** 53 - 1);
+console.log(Number.MAX_SAFE_INTEGER); // the biggest safe value in js
+console.log(2 ** 53 + 1);
+console.log(2 ** 53 + 3);
+console.log(2 ** 53 + 6);
+
+//bigInt
+console.log(485858939384747472727843828492948248291n);
+console.log(BigInt(53838383474726264727729427478284828843277472));
+
+// operations
+console.log(65747383829292928383828284727284n * 10000n);
+
+// cannot perform operations with other types
+// Exceptions
+const huge = 848488282827428482774n;
+const num = 23;
+console.log(huge * BigInt(num));
+console.log(20n > 15);
+console.log(20n === 20);
+console.log(typeof 20n);
+console.log(20n == '20');
+console.log(huge + ' is really Big');
+
+// Divisions
+console.log(10n / 3n);
+console.log(10 / 3);
+ console.log(Number.parseInt('12383838373726462646264626462n'));
+ console.log(BigInt('12383838373726462646264626462'));
 */
+
+/** 
+
+// ! Date and Time
+// * First
+const now = new Date();
+console.log(now);
+// * Second
+console.log(new Date('Oct 05 2022 07:36:06 GMT-0700'));
+// * Third
+console.log(new Date('december 16 1995'));
+//
+console.log(new Date(account1.movementsDates[0]));
+
+console.log(new Date(1993, 10, 33, 12));
+console.log(new Date(0));
+console.log(new Date(3 * 24 * 60 * 60 * 1000));
+console.log(3 * 24 * 60 * 60 * 1000);
+*/
+
+//! Working with Dates
+/**
+const future = new Date(2037, 10, 19, 15, 23);
+console.log(future);
+console.log(future.getFullYear());
+console.log(future.getMonth()); //* Zero based
+console.log(future.getDate());
+console.log(future.getDay()); //* Zero based
+console.log(future.getHours());
+console.log(future.getMinutes());
+console.log(future.getSeconds());
+console.log(future.toISOString());
+console.log(future.getTime()); //* returns 2142285780000
+console.log(new Date(2142285780000));
+console.log(Date.now());
+console.log(new Date(1664986744243)); // returns current date
+ * 
+ */
