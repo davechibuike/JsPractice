@@ -114,13 +114,18 @@ const displayMovements = function (acc, sort = false) {
     const date = new Date(acc.movementsDates[i]);
     const displayDate = formatMovementDate(date, acc.locale);
 
+    const formattedMov = new Intl.NumberFormat(acc.locale, {
+      style: 'currency',
+      currency: 'USD',
+    }).format(mov);
+
     const html = `
       <div class="movements__row">
         <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
         <div class="movements__date">${displayDate}</div>
-        <div class="movements__value">${mov.toFixed(2)}€</div>
+        <div class="movements__value">${formattedMov}</div>
       </div>
     `;
 
@@ -517,3 +522,32 @@ console.log(new Date(1664986744243)); // returns current date
 //   new Date(2037, 3, 24, 10, 8)
 // );
 // console.log(day1);
+
+const num = 3849303.83;
+
+// const options = {
+//   style: 'unit',
+//   unit: 'mile-per-hour',
+// };
+
+// const options = {
+//   style: 'currency',
+//   unit: 'celsius',
+//   currency: 'EUR',
+//   // useGrouping: false,
+// };
+// console.log('US : ', new Intl.NumberFormat('en-US').format(num));
+// console.log('Germany : ', new Intl.NumberFormat('de-DE').format(num));
+// console.log('Syria : ', new Intl.NumberFormat('ar-SY').format(num));
+// console.log(
+//   navigator.language,
+//   new Intl.NumberFormat(navigator.language).format(num)
+// );
+// console.log('----------------------------');
+// console.log('US : ', new Intl.NumberFormat('en-US', options).format(num));
+// console.log('Germany : ', new Intl.NumberFormat('de-DE', options).format(num));
+// console.log('Syria : ', new Intl.NumberFormat('ar-SY', options).format(num));
+// console.log(
+//   navigator.language,
+//   new Intl.NumberFormat(navigator.language, options).format(num)
+// );
