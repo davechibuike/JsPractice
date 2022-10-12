@@ -101,6 +101,13 @@ const formatMovementDate = (date, locale) => {
   return new Intl.DateTimeFormat(locale).format(date);
 };
 
+const formatCurrency = function (value, locale, currency) {
+  return new Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency: currency,
+  }).format(value);
+};
+
 const displayMovements = function (acc, sort = false) {
   containerMovements.innerHTML = '';
 
@@ -114,11 +121,7 @@ const displayMovements = function (acc, sort = false) {
     const date = new Date(acc.movementsDates[i]);
     const displayDate = formatMovementDate(date, acc.locale);
 
-    const formattedMov = new Intl.NumberFormat(acc.locale, {
-      style: 'currency',
-      currency: 'USD',
-    }).format(mov);
-
+    const formattedMov = formatCurrency(mov, acc.locale, acc.currency);
     const html = `
       <div class="movements__row">
         <div class="movements__type movements__type--${type}">${
@@ -135,29 +138,41 @@ const displayMovements = function (acc, sort = false) {
 
 const calcDisplayBalance = function (acc) {
   acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.textContent = `${acc.balance.toFixed(2)}€`;
+  const formatBalance = formatCurrency(acc.balance, acc.locale, acc.currency);
+  labelBalance.textContent = `${formatBalance}`;
 };
 
 const calcDisplaySummary = function (acc) {
   const incomes = acc.movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumIn.textContent = `${incomes.toFixed(2)}€`;
+  labelSumIn.textContent = `${formatCurrency(
+    incomes,
+    acc.locale,
+    acc.currency
+  )} `;
 
   const out = acc.movements
     .filter(mov => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumOut.textContent = `${Math.abs(out).toFixed(2)}€`;
+  labelSumOut.textContent = `${formatCurrency(
+    Math.abs(out),
+    acc.locale,
+    acc.currency
+  )}`;
 
   const interest = acc.movements
     .filter(mov => mov > 0)
     .map(deposit => (deposit * acc.interestRate) / 100)
     .filter((int, i, arr) => {
-      // console.log(arr);
       return int >= 1;
     })
     .reduce((acc, int) => acc + int, 0);
-  labelSumInterest.textContent = `${interest.toFixed(2)}€`;
+  labelSumInterest.textContent = `${formatCurrency(
+    interest,
+    acc.locale,
+    acc.currency
+  )}`;
 };
 
 const createUsernames = function (accs) {
