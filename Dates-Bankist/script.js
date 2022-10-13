@@ -199,13 +199,10 @@ const updateUI = function (acc) {
 
 // Logout timer
 const logOutTimer = function () {
-  let time = 120;
-
-  const timer = setInterval(() => {
+  const tick = () => {
     const min = String(Math.trunc(time / 60)).padStart(2, 0);
     const sec = String(Math.trunc(time % 60)).padStart(2, 0);
     labelTimer.textContent = `${min}:${sec}`;
-    time--;
 
     // log user out
     if (time === 0) {
@@ -213,7 +210,14 @@ const logOutTimer = function () {
       labelWelcome.textContent = 'Log in to get started';
       containerApp.style.opacity = 0;
     }
-  }, 1000);
+
+    time--;
+  };
+
+  let time = 120;
+  tick();
+
+  const timer = setInterval(tick, 1000);
 };
 
 ///////////////////////////////////////
@@ -592,15 +596,15 @@ const num = 3849303.83;
 // );
 
 // SetTimeout
-const ingredients = ['olive', 'spinach'];
-const pizzaTimer = setTimeout(
-  (ing1, ing2) => console.log(`Here is your pizza with ${ing1} and ${ing2}`),
-  3000,
-  ...ingredients
-);
-console.log('Waiting ......');
+// const ingredients = ['olive', 'spinach'];
+// const pizzaTimer = setTimeout(
+//   (ing1, ing2) => console.log(`Here is your pizza with ${ing1} and ${ing2}`),
+//   3000,
+//   ...ingredients
+// );
+// console.log('Waiting ......');
 
-if (ingredients.includes('spinach')) clearTimeout(pizzaTimer);
+// if (ingredients.includes('spinach')) clearTimeout(pizzaTimer);
 
 //  SetInterval
 // setInterval(() => {
