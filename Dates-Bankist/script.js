@@ -197,14 +197,33 @@ const updateUI = function (acc) {
   calcDisplaySummary(acc);
 };
 
+// Logout timer
+const logOutTimer = function () {
+  let time = 120;
+
+  const timer = setInterval(() => {
+    const min = String(Math.trunc(time / 60)).padStart(2, 0);
+    const sec = String(Math.trunc(time % 60)).padStart(2, 0);
+    labelTimer.textContent = `${min}:${sec}`;
+    time--;
+
+    // log user out
+    if (time === 0) {
+      clearInterval(timer);
+      labelWelcome.textContent = 'Log in to get started';
+      containerApp.style.opacity = 0;
+    }
+  }, 1000);
+};
+
 ///////////////////////////////////////
 // Event handlers
 let currentAccount;
 
-// Fake account
-currentAccount = account1;
-updateUI(account1);
-containerApp.style.opacity = 100;
+// Fake account for testing
+// currentAccount = account1;
+// updateUI(account1);
+// containerApp.style.opacity = 100;
 
 btnLogin.addEventListener('click', function (e) {
   // Prevent form from submitting
@@ -257,6 +276,9 @@ btnLogin.addEventListener('click', function (e) {
     inputLoginUsername.value = inputLoginPin.value = '';
     inputLoginPin.blur();
 
+    // LogOut timer
+    logOutTimer();
+
     // Update UI
     updateUI(currentAccount);
   }
@@ -295,14 +317,16 @@ btnLoan.addEventListener('click', function (e) {
   const amount = Math.floor(inputLoanAmount.value);
 
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
-    // Add movement
-    currentAccount.movements.push(amount);
+    setTimeout(() => {
+      // Add movement
+      currentAccount.movements.push(amount);
 
-    // Add loan Date
-    currentAccount.movementsDates.push(new Date().toISOString());
+      // Add loan Date
+      currentAccount.movementsDates.push(new Date().toISOString());
 
-    // Update UI
-    updateUI(currentAccount);
+      // Update UI
+      updateUI(currentAccount);
+    }, 2500);
   }
   inputLoanAmount.value = '';
 });
@@ -566,3 +590,25 @@ const num = 3849303.83;
 //   navigator.language,
 //   new Intl.NumberFormat(navigator.language, options).format(num)
 // );
+
+// SetTimeout
+const ingredients = ['olive', 'spinach'];
+const pizzaTimer = setTimeout(
+  (ing1, ing2) => console.log(`Here is your pizza with ${ing1} and ${ing2}`),
+  3000,
+  ...ingredients
+);
+console.log('Waiting ......');
+
+if (ingredients.includes('spinach')) clearTimeout(pizzaTimer);
+
+//  SetInterval
+// setInterval(() => {
+//   const now = new Date();
+//   const time = new Intl.DateTimeFormat(navigator.language, {
+//     hour: 'numeric',
+//     minute: 'numeric',
+//     second: 'numeric',
+//   }).format(now);
+//   console.log(time);
+// }, 1000);
