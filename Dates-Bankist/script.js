@@ -198,7 +198,7 @@ const updateUI = function (acc) {
 };
 
 // Logout timer
-const logOutTimer = function () {
+const startLogOutTimer = function () {
   const tick = () => {
     const min = String(Math.trunc(time / 60)).padStart(2, 0);
     const sec = String(Math.trunc(time % 60)).padStart(2, 0);
@@ -286,7 +286,7 @@ btnLogin.addEventListener('click', function (e) {
     // check if there is an existing timer with a user
     if (timer) clearInterval(timer);
     // LogOut timer
-    timer = logOutTimer();
+    timer = startLogOutTimer();
 
     // Update UI
     updateUI(currentAccount);
@@ -317,6 +317,10 @@ btnTransfer.addEventListener('click', function (e) {
 
     // Update UI
     updateUI(currentAccount);
+
+    // Reset timer
+    clearInterval(timer);
+    timer = startLogOutTimer();
   }
 });
 
@@ -335,6 +339,10 @@ btnLoan.addEventListener('click', function (e) {
 
       // Update UI
       updateUI(currentAccount);
+
+      //reset timer
+      clearInterval(timer);
+      timer = startLogOutTimer();
     }, 2500);
   }
   inputLoanAmount.value = '';
