@@ -214,15 +214,18 @@ const logOutTimer = function () {
     time--;
   };
 
-  let time = 120;
+  let time = 300;
+
   tick();
 
   const timer = setInterval(tick, 1000);
+
+  return timer;
 };
 
 ///////////////////////////////////////
 // Event handlers
-let currentAccount;
+let currentAccount, timer;
 
 // Fake account for testing
 // currentAccount = account1;
@@ -280,8 +283,10 @@ btnLogin.addEventListener('click', function (e) {
     inputLoginUsername.value = inputLoginPin.value = '';
     inputLoginPin.blur();
 
+    // check if there is an existing timer with a user
+    if (timer) clearInterval(timer);
     // LogOut timer
-    logOutTimer();
+    timer = logOutTimer();
 
     // Update UI
     updateUI(currentAccount);
