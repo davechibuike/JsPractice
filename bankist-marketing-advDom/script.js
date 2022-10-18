@@ -69,3 +69,38 @@ document.querySelector('.btn--close--cookie').addEventListener('click', () => {
   message.remove(); // recent method
   // message.parentElement.removeChild(message); // old method
 });
+
+message.style.backgroundColor = '#37383d';
+message.style.width = '120%';
+
+console.log(message.style.color); //nothing happens cause its an inline style
+console.log(message.style.backgroundColor);
+
+// console.log(getComputedStyle(message));
+console.log(getComputedStyle(message).color);
+console.log(getComputedStyle(message).height);
+
+message.style.height =
+  Number.parseFloat(getComputedStyle(message).height, 10) + 30 + 'px';
+
+// ! Styles , attributes and classes
+
+//* styles
+document.documentElement.style.setProperty('--color-primary', 'orangered');
+
+// * attributes
+const logo = document.querySelector('.nav__logo');
+console.log(logo);
+console.log(logo.alt);
+console.log(logo.baseURI);
+console.log(logo.src);
+console.log(logo.classList);
+console.log(logo.className);
+
+logo.alt = 'Beautiful minimalist logo';
+
+// Non-Standard
+console.log(logo.designer); // now lets set that attribute
+logo.setAttribute('designer', 'kester davey');
+logo.setAttribute('company', 'Bankist');
+console.log(logo.getAttribute('company'));
