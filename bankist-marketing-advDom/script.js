@@ -29,78 +29,138 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
-console.log(document.documentElement);
-console.log(document.head);
-console.log(document.body);
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
 
-const header = document.querySelector('.header');
+btnScrollTo.addEventListener('click', e => {
+  // const s1coords = section1.getBoundingClientRect();
+  // console.log(s1coords);
 
-const allSections = document.querySelectorAll('.section');
-console.log(allSections);
+  // console.log(e.target.getBoundingClientRect());
 
-document.getElementById('section--1');
-const allButtons = document.getElementsByTagName('button');
-console.log(allButtons);
+  // console.log('Current scroll (X/Y)', window.pageXOffset, window.pageYOffset);
 
-const btns = document.getElementsByClassName('btn');
-console.log(btns);
+  // console.log(
+  //   'height/width viewport',
+  //   document.documentElement.clientHeight,
+  //   document.documentElement.clientWidth
+  // );
 
-//! creating and inserting elements
-//  insertAdjecentHTML
+  //* Scrolling to section1
 
-const message = document.createElement('div');
-message.classList.add('cookie-message');
-// message.textContent =
-//   'We use cookies for improved functionalities and analytics.';
+  // window.scrollTo(
+  //   s1coords.left + window.pageXOffset,
+  //   s1coords.top + window.pageYOffset
+  // );
 
-message.innerHTML =
-  'We use cookies for improved functionalities and analytics. <buttton class="btn btn--close--cookie">Got it!</button>';
-console.log(message);
+  // window.scrollTo({
+  //   left: s1coords.left + window.pageXOffset,
+  //   top: s1coords.top + window.pageYOffset,
+  //   behavior: 'smooth',
+  // });
 
-// header.prepend(message);
-header.append(message);
-// header.append(message.cloneNode(true));
-
-// header.before(message);
-// header.after(message);
-
-// ! Detele elements
-document.querySelector('.btn--close--cookie').addEventListener('click', () => {
-  message.remove(); // recent method
-  // message.parentElement.removeChild(message); // old method
+  // morden way
+  section1.scrollIntoView({ behavior: 'smooth' });
 });
 
-message.style.backgroundColor = '#37383d';
-message.style.width = '120%';
+//////////////////////////////////////////////////////////////////////
+//! Practice Session
 
-console.log(message.style.color); //nothing happens cause its an inline style
-console.log(message.style.backgroundColor);
+// console.log(document.documentElement);
+// console.log(document.head);
+// console.log(document.body);
 
-// console.log(getComputedStyle(message));
-console.log(getComputedStyle(message).color);
-console.log(getComputedStyle(message).height);
+// const header = document.querySelector('.header');
 
-message.style.height =
-  Number.parseFloat(getComputedStyle(message).height, 10) + 30 + 'px';
+// const allSections = document.querySelectorAll('.section');
+// console.log(allSections);
 
-// ! Styles , attributes and classes
+// document.getElementById('section--1');
+// const allButtons = document.getElementsByTagName('button');
+// console.log(allButtons);
 
-//* styles
-document.documentElement.style.setProperty('--color-primary', 'orangered');
+// const btns = document.getElementsByClassName('btn');
+// console.log(btns);
 
-// * attributes
-const logo = document.querySelector('.nav__logo');
-console.log(logo);
-console.log(logo.alt);
-console.log(logo.baseURI);
-console.log(logo.src);
-console.log(logo.classList);
-console.log(logo.className);
+// //! creating and inserting elements
+// //  insertAdjecentHTML
 
-logo.alt = 'Beautiful minimalist logo';
+// const message = document.createElement('div');
+// message.classList.add('cookie-message');
+// // message.textContent =
+// //   'We use cookies for improved functionalities and analytics.';
 
-// Non-Standard
-console.log(logo.designer); // now lets set that attribute
-logo.setAttribute('designer', 'kester davey');
-logo.setAttribute('company', 'Bankist');
-console.log(logo.getAttribute('company'));
+// message.innerHTML =
+//   'We use cookies for improved functionalities and analytics. <buttton class="btn btn--close--cookie">Got it!</button>';
+// console.log(message);
+
+// // header.prepend(message);
+// header.append(message);
+// // header.append(message.cloneNode(true));
+
+// // header.before(message);
+// // header.after(message);
+
+// // ! Detele elements
+// document.querySelector('.btn--close--cookie').addEventListener('click', () => {
+//   message.remove(); // recent method
+//   // message.parentElement.removeChild(message); // old method
+// });
+
+// message.style.backgroundColor = '#37383d';
+// message.style.width = '120%';
+
+// console.log(message.style.color); //nothing happens cause its an inline style
+// console.log(message.style.backgroundColor);
+
+// // console.log(getComputedStyle(message));
+// console.log(getComputedStyle(message).color);
+// console.log(getComputedStyle(message).height);
+
+// message.style.height =
+//   Number.parseFloat(getComputedStyle(message).height, 10) + 30 + 'px';
+
+// // ! Styles , attributes and classes
+
+// //* styles
+// document.documentElement.style.setProperty('--color-primary', 'orangered');
+
+// // * attributes
+// const logo = document.querySelector('.nav__logo');
+// console.log(logo);
+// console.log(logo.alt);
+// console.log(logo.baseURI);
+// console.log(logo.classList);
+// console.log(logo.className);
+
+// logo.alt = 'Beautiful minimalist logo';
+
+// // Non-Standard
+// console.log(logo.designer); // now lets set that attribute
+// logo.setAttribute('designer', 'kester davey');
+// logo.setAttribute('company', 'Bankist');
+// console.log(logo.getAttribute('company'));
+
+// console.log(logo.src);
+// console.log(logo.getAttribute('src'));
+
+// // const link = document.querySelector('.twitter-link');
+// // console.log(link.href);
+// // console.log(link.getAttribute('href'));
+
+// const link = document.querySelector('.nav__link--btn');
+// console.log(link.href);
+// console.log(link.getAttribute('href'));
+
+// // ! Data attribute
+// console.log(logo.dataset.versionNumber);
+
+// //! Classes
+// logo.classList.add('c', 'j'); // allows us use multiple classes and can add and remove
+// logo.classList.remove('c', 'j');
+// logo.classList.toggle('c');
+// logo.classList.contains('c'); // not includes , its called contains
+
+//  Dont use this
+// this will overwrite all the exisiting class and can only use one class
+// logo.className = 'davey';
