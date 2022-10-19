@@ -164,3 +164,20 @@ btnScrollTo.addEventListener('click', e => {
 //  Dont use this
 // this will overwrite all the exisiting class and can only use one class
 // logo.className = 'davey';
+
+// ! Event and Event handelers
+
+const h1 = document.querySelector('h1');
+
+const alertH1 = e => {
+  alert(" 'onmouseenter': You're Reading the Heading");
+};
+
+h1.addEventListener('mouseenter', e => {
+  alert(" 'addEventListner': You're Reading the Heading");
+});
+
+//* Using on
+h1.onmouseenter = e => {
+  alert(" 'onmouseenter': You're Reading the Heading");
+};
