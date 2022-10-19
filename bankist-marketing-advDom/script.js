@@ -169,15 +169,14 @@ btnScrollTo.addEventListener('click', e => {
 
 const h1 = document.querySelector('h1');
 
-const alertH1 = e => {
+const alertH1 = function (e) {
   alert(" 'onmouseenter': You're Reading the Heading");
+  h1.removeEventListener('mouseenter', alertH1);
 };
 
-h1.addEventListener('mouseenter', e => {
-  alert(" 'addEventListner': You're Reading the Heading");
-});
+h1.addEventListener('mouseenter', alertH1);
 
-//* Using on
-h1.onmouseenter = e => {
-  alert(" 'onmouseenter': You're Reading the Heading");
-};
+//* Using on //old method
+// h1.onmouseenter = e => {
+//   alert(" 'onmouseenter': You're Reading the Heading");
+// };
