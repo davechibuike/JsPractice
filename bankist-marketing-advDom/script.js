@@ -9,6 +9,7 @@ const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
+const nav = document.querySelector('.nav');
 
 const openModal = function () {
   modal.classList.remove('hidden');
@@ -88,6 +89,54 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
   }
 });
 
+//! Operation Tabs
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
+
+//* Using event deligation
+tabsContainer.addEventListener('click', function (e) {
+  const clicked = e.target.closest('.operations__tab');
+
+  //? Guard Clause
+  if (!clicked) return;
+
+  //* Remove active classes
+  tabs.forEach(tab => tab.classList.remove('operations__tab--active'));
+
+  tabsContent.forEach(content =>
+    content.classList.remove('operations__content--active')
+  );
+
+  //* Active Tab
+  clicked.classList.add('operations__tab--active');
+
+  //* Activate Content area
+  document
+    .querySelector(`.operations__content--${clicked.dataset.tab}`)
+    .classList.add('operations__content--active');
+});
+
+//! Menu Fade Animation
+const handleHover = function (e) {
+  if (e.target.classList.contains('nav__link')) {
+    const link = e.target;
+    const siblings = link.closest('.nav').querySelectorAll('.nav__link');
+    const logo = link.closest('.nav').querySelector('img');
+
+    siblings.forEach(el => {
+      if (el !== link) el.style.opacity = this;
+    });
+    logo.style.opacity = this;
+  }
+};
+
+// passing "Argument" into handler
+nav.addEventListener('mouseover', handleHover.bind(0.5));
+
+nav.addEventListener('mouseout', handleHover.bind(1));
+
+//
 //////////////////////////////////////////////////////////////////////
 //! Practice Session
 
@@ -227,8 +276,8 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
 //   this.style.backgroundColor = randomColor();
 //   console.log('CONTAINER', e.target, e.currentTarget);
 
-//   // * Stop propagation
-//   // e.stopPropagation();
+// * Stop propagation
+// e.stopPropagation();
 // });
 
 // document.querySelector('.nav').addEventListener('click', function (e) {
