@@ -186,7 +186,7 @@ const sectionObserver = new IntersectionObserver(revealSection, {
 
 allSections.forEach(function (section) {
   sectionObserver.observe(section);
-  section.classList.add('section--hidden');
+  // section.classList.add('section--hidden');
 });
 
 //! Lazy loading images
@@ -214,6 +214,88 @@ const imgObserver = new IntersectionObserver(loadImg, {
 });
 
 imgTargets.forEach(img => imgObserver.observe(img));
+
+//! Slider
+const slides = document.querySelectorAll('.slide');
+const slider = document.querySelector('.slider');
+
+const btnSliderLeft = document.querySelector('.slider__btn--left');
+const btnSliderRight = document.querySelector('.slider__btn--right');
+const dotContainer = document.querySelector('.dots');
+
+let currentSlide = 0;
+const maxSlide = slides.length;
+
+const goToSlide = function (slide) {
+  slides.forEach(
+    (s, i) => (s.style.transform = `translateX(${100 * (i - slide)}%)`)
+  );
+};
+goToSlide(0);
+
+const createDot = function () {
+  slides.forEach(function (_, i) {
+    dotContainer.insertAdjacentHTML(
+      'beforeend',
+      `
+    <button class="dots__dot" data-slide=${i}></button>`
+    );
+  });
+};
+createDot();
+
+const activateDots = function (slide) {
+  document
+    .querySelectorAll('.dots')
+    .forEach(dot => dot.classList.remove('dots__dot--active'));
+
+  document
+    .querySelector(`.dots__dot[data-slide="${slide}"]`)
+    .classList.add('dots__dot--active');
+};
+activateDots(0);
+
+dotContainer.addEventListener('click', function (e) {
+  if (e.target.classList.contains('dots__dot')) {
+    const { slide } = e.target.dataset;
+    goToSlide(slide);
+    activateDots(slide);
+  }
+});
+
+//*  Next slide
+const nextSlide = function () {
+  if (currentSlide === maxSlide - 1) {
+    currentSlide = 0;
+  } else {
+    currentSlide++;
+  }
+
+  goToSlide(currentSlide);
+  activateDots(currentSlide);
+};
+
+//* previous Slide
+const prevSlide = function () {
+  if (currentSlide === 0) {
+    currentSlide = maxSlide - 1;
+  } else {
+    currentSlide--;
+  }
+
+  goToSlide(currentSlide);
+  activateDots(currentSlide);
+};
+
+btnSliderRight.addEventListener('click', nextSlide);
+btnSliderLeft.addEventListener('click', prevSlide);
+
+//* Arrow keydown slider moves
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'ArrowRight') nextSlide();
+  e.key === 'ArrowLeft' && prevSlide();
+});
+
 //////////////////////////////////////////////////////////////////////
 //! Practice Session
 
