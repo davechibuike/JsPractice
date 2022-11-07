@@ -53,3 +53,21 @@ Person.prototype.species = 'Homo sapient'; //can be array['Homo sapient', 'Human
 console.log(dave.species, matilda.species);
 
 console.log(dave.hasOwnProperty('firstName'));
+console.log(dave.__proto__);
+console.log(dave.__proto__.__proto__); //This would bring the main object propreties
+console.log(dave.__proto__.__proto__.__proto__);
+
+console.dir(Person.prototype.constructor);
+
+//? Example
+const arr = [2, 3, 4, 3, 4, 4, 4, 5, 6, 7, 7, 7, 8, 9, 9, 9]; // new Array === []
+console.log(arr.__proto__);
+console.log(arr.__proto__.__proto__);
+console.log(arr.__proto__ === Array.prototype);
+
+//! Add a prototype to get all the unique values in an Array
+Array.prototype.unique = function () {
+  return [...new Set(this)];
+};
+
+console.log(arr.unique());
