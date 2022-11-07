@@ -44,3 +44,12 @@ Person.prototype.upperFirstName = function () {
 
 // * View all prototypes
 console.log(dave.__proto__);
+console.log(dave.__proto__ === Person.prototype);
+console.log(Person.prototype.isPrototypeOf(dave));
+console.log(Person.prototype.isPrototypeOf(Person));
+//*Think of this as = .isPrototypeOfLinkedObject
+
+Person.prototype.species = 'Homo sapient'; //can be array['Homo sapient', 'Human'];
+console.log(dave.species, matilda.species);
+
+console.log(dave.hasOwnProperty('firstName'));
