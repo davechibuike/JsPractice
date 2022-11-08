@@ -125,8 +125,8 @@ const mercedes = new Car('Mercedes', 95);
 
 //*Class declaration
 class PersonCl {
-  constructor(firstName, birthYear) {
-    this.firstName = firstName;
+  constructor(fullName, birthYear) {
+    this.fullName = fullName;
     this.birthYear = birthYear;
     this.currentYear = new Date().getFullYear();
   }
@@ -139,11 +139,70 @@ class PersonCl {
   }
 
   greet() {
-    console.log(`Hey ${this.firstName}`);
+    console.log(`Hey ${this.fullName}`);
+  }
+
+  get age() {
+    return 2023 - this.birthYear;
+  }
+
+  //? Set a property that already exist
+  set fullName(name) {
+    if (name.includes(' ')) return (this._fullName = name);
+    else alert(`${name} is not a full name.`);
+  }
+
+  get fullName() {
+    return this._fullName;
   }
 }
 
-const david = new PersonCl('david', 1993);
-console.log(david);
-david.calcAge();
-david.greet();
+const david = new PersonCl('david Chibuike', 1993);
+// console.log(david);
+// david.calcAge();
+// david.greet();
+// console.log(david.age);
+
+/*
+Rules about Classes
+
+1. Classes are not Hoisted
+
+2. Classes are first class Citizens : meaning they can be passed into functions and return them from functions
+
+3. Classes are exceuted in strict mode
+*/
+
+const walter = new PersonCl('walter white', 1990);
+
+//* Getters and Setters
+const account = {
+  name: 'Dave Kester',
+  movements: [233, 12, 45, 366, 500, 300],
+
+  //* Using Getters
+  get latest() {
+    return this.movements.slice(-1).pop();
+  },
+
+  //* Using Setters
+  set latest(mov) {
+    this.movements.push(mov);
+  },
+};
+// this is helpful when needed to read something as a property but do some calculations
+// console.log(account.latest);
+
+// Using setters
+account.latest = 50;
+// console.log(account.movements);
+
+//* Static methods
+
+PersonCl.hey = function () {
+  // console.log('Hey there 👋🏼');
+  // console.log(this);
+};
+
+PersonCl.hey();
+// david.hey();  //wont work because hey mathod is static and not a prototype
