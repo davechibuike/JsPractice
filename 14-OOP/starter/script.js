@@ -206,3 +206,30 @@ PersonCl.hey = function () {
 
 PersonCl.hey();
 // david.hey();  //wont work because hey mathod is static and not a prototype
+
+// * Object.create()
+const PersonProto = {
+  calcAge() {
+    console.log(2022 - this.birthYear);
+  },
+
+  init(firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  },
+};
+
+const stephen = Object.create(PersonProto);
+console.log(stephen);
+
+stephen.name = 'Stephen';
+stephen.birthYear = 1995;
+console.log(stephen);
+stephen.calcAge();
+console.log(stephen.__proto__);
+console.log(stephen.__proto__ === PersonProto);
+
+const sarah = Object.create(PersonProto);
+sarah.init('Sarah', 2001);
+sarah.calcAge();
+console.log(sarah);
