@@ -128,5 +128,22 @@ class PersonCl {
   constructor(firstName, birthYear) {
     this.firstName = firstName;
     this.birthYear = birthYear;
+    this.currentYear = new Date().getFullYear();
+  }
+
+  //* Methods would be added to .prototype property
+  calcAge() {
+    const age = this.currentYear - this.birthYear;
+    console.log(age);
+    return age;
+  }
+
+  greet() {
+    console.log(`Hey ${this.firstName}`);
   }
 }
+
+const david = new PersonCl('david', 1993);
+console.log(david);
+david.calcAge();
+david.greet();
