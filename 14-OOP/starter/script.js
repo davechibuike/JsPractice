@@ -282,19 +282,3 @@ class Car {
 // ford.speedUs = 50;
 // console.log(ford);
 
-const Student = function (firstName, birthYear, course) {
-  // this.firstName = firstName;
-  // this.birthYear = birthYear;
-  // * Inheriting from Person
-  Person.call(this, firstName, birthYear);
-  this.course = course;
-};
-
-Student.prototype.introduce = function () {
-  console.log(`My name is ${this.firstName}, and i study ${this.course}`);
-};
-
-const mike = new Student('Mike', 2000, 'Computer Science');
-
-console.log(mike);
-mike.introduce();
