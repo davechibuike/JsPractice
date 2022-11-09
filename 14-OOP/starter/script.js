@@ -273,11 +273,11 @@ class Car {
   }
 }
 
-const ford = new Car('Ford', 120);
-console.log(ford);
-ford.accelerate();
-ford.break();
-ford.break();
-console.log(ford.speedUS);
-ford.speedUs = 50;
-console.log(ford);
+// const ford = new Car('Ford', 120);
+// console.log(ford);
+// ford.accelerate();
+// ford.break();
+// ford.break();
+// console.log(ford.speedUS);
+// ford.speedUs = 50;
+// console.log(ford);
