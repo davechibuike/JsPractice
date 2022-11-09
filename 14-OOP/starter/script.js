@@ -18,8 +18,8 @@ const dave = new Person('dave', 1995);
 // 3. {} is linked to prototype
 // 4. function automatically returns {}
 
-const matilda = new Person('matilda', 2010);
-const becham = new Person('becham', 1992);
+// const matilda = new Person('matilda', 2010);
+// const becham = new Person('becham', 1992);
 // console.log(dave, matilda, becham);
 
 // const jay = 'jay';
@@ -28,15 +28,15 @@ const becham = new Person('becham', 1992);
 
 //* Prototypes
 // console.log(Person.prototype);
-Person.prototype.calcAge = function () {
-  console.log(2023 - this.birthYear);
-};
+// Person.prototype.calcAge = function () {
+//   console.log(2023 - this.birthYear);
+// };
 
-Person.prototype.upperFirstName = function () {
-  let fName =
-    this.firstName.split('')[0].toUpperCase() + this.firstName.slice(1);
-  console.log(fName);
-};
+// Person.prototype.upperFirstName = function () {
+//   let fName =
+//     this.firstName.split('')[0].toUpperCase() + this.firstName.slice(1);
+//   console.log(fName);
+// };
 
 //* Using prototypes
 // dave.calcAge();
@@ -273,11 +273,28 @@ class Car {
   }
 }
 
-const ford = new Car('Ford', 120);
-console.log(ford);
-ford.accelerate();
-ford.break();
-ford.break();
-console.log(ford.speedUS);
-ford.speedUs = 50;
-console.log(ford);
+// const ford = new Car('Ford', 120);
+// console.log(ford);
+// ford.accelerate();
+// ford.break();
+// ford.break();
+// console.log(ford.speedUS);
+// ford.speedUs = 50;
+// console.log(ford);
+
+const Student = function (firstName, birthYear, course) {
+  // this.firstName = firstName;
+  // this.birthYear = birthYear;
+  // * Inheriting from Person
+  Person.call(this, firstName, birthYear);
+  this.course = course;
+};
+
+Student.prototype.introduce = function () {
+  console.log(`My name is ${this.firstName}, and i study ${this.course}`);
+};
+
+const mike = new Student('Mike', 2000, 'Computer Science');
+
+console.log(mike);
+mike.introduce();
