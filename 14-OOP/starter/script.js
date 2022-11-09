@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 "use strict";
+=======
+'use strict';
+>>>>>>> 0988de44e818201629d18b5d080c527038805e73
 
 // constructor function
 const Person = function (firstName, birthYear) {
@@ -12,14 +16,23 @@ const Person = function (firstName, birthYear) {
   //   };
 };
 
+<<<<<<< HEAD
 const dave = new Person("dave", 1995);
+=======
+const dave = new Person('dave', 1995);
+>>>>>>> 0988de44e818201629d18b5d080c527038805e73
 // 1. New {} is created
 // 2. func is called, this = {}
 // 3. {} is linked to prototype
 // 4. function automatically returns {}
 
+<<<<<<< HEAD
 const matilda = new Person("matilda", 2010);
 const becham = new Person("becham", 1992);
+=======
+const matilda = new Person('matilda', 2010);
+const becham = new Person('becham', 1992);
+>>>>>>> 0988de44e818201629d18b5d080c527038805e73
 // console.log(dave, matilda, becham);
 
 // const jay = 'jay';
@@ -34,7 +47,11 @@ Person.prototype.calcAge = function () {
 
 Person.prototype.upperFirstName = function () {
   let fName =
+<<<<<<< HEAD
     this.firstName.split("")[0].toUpperCase() + this.firstName.slice(1);
+=======
+    this.firstName.split('')[0].toUpperCase() + this.firstName.slice(1);
+>>>>>>> 0988de44e818201629d18b5d080c527038805e73
   console.log(fName);
 };
 
@@ -49,7 +66,11 @@ Person.prototype.upperFirstName = function () {
 // console.log(Person.prototype.isPrototypeOf(Person));
 //*Think of this as = .isPrototypeOfLinkedObject
 
+<<<<<<< HEAD
 Person.prototype.species = "Homo sapient"; //can be array['Homo sapient', 'Human'];
+=======
+Person.prototype.species = 'Homo sapient'; //can be array['Homo sapient', 'Human'];
+>>>>>>> 0988de44e818201629d18b5d080c527038805e73
 // console.log(dave.species, matilda.species);
 
 // console.log(dave.hasOwnProperty('firstName'));
@@ -88,6 +109,7 @@ DATA CAR 2: 'Mercedes' going at 95 km/h
 GOOD LUCK 😀
 */
 
+<<<<<<< HEAD
 // const Car = function (make, speed) {
 //   this.make = make;
 //   this.speed = speed;
@@ -105,6 +127,25 @@ GOOD LUCK 😀
 
 // const bmw = new Car('BMW', 120);
 // const mercedes = new Car('Mercedes', 95);
+=======
+const Car = function (make, speed) {
+  this.make = make;
+  this.speed = speed;
+};
+
+Car.prototype.accelerate = function () {
+  this.speed += 10;
+  console.log(`${this.make} going at ${this.speed} Km/h`);
+};
+
+Car.prototype.break = function () {
+  this.speed -= 5;
+  console.log(`${this.make} going at ${this.speed} Km/h`);
+};
+
+const bmw = new Car('BMW', 120);
+const mercedes = new Car('Mercedes', 95);
+>>>>>>> 0988de44e818201629d18b5d080c527038805e73
 
 // bmw.accelerate();
 // bmw.accelerate();
@@ -148,7 +189,11 @@ class PersonCl {
 
   //? Set a property that already exist
   set fullName(name) {
+<<<<<<< HEAD
     if (name.includes(" ")) return (this._fullName = name);
+=======
+    if (name.includes(' ')) return (this._fullName = name);
+>>>>>>> 0988de44e818201629d18b5d080c527038805e73
     else alert(`${name} is not a full name.`);
   }
 
@@ -157,7 +202,11 @@ class PersonCl {
   }
 }
 
+<<<<<<< HEAD
 const david = new PersonCl("david Chibuike", 1993);
+=======
+const david = new PersonCl('david Chibuike', 1993);
+>>>>>>> 0988de44e818201629d18b5d080c527038805e73
 // console.log(david);
 // david.calcAge();
 // david.greet();
@@ -173,11 +222,19 @@ Rules about Classes
 3. Classes are exceuted in strict mode
 */
 
+<<<<<<< HEAD
 const walter = new PersonCl("walter white", 1990);
 
 //* Getters and Setters
 const account = {
   name: "Dave Kester",
+=======
+const walter = new PersonCl('walter white', 1990);
+
+//* Getters and Setters
+const account = {
+  name: 'Dave Kester',
+>>>>>>> 0988de44e818201629d18b5d080c527038805e73
   movements: [233, 12, 45, 366, 500, 300],
 
   //* Using Getters
@@ -220,6 +277,7 @@ const PersonProto = {
 };
 
 const stephen = Object.create(PersonProto);
+<<<<<<< HEAD
 // console.log(stephen);
 
 stephen.name = "Stephen";
@@ -281,3 +339,18 @@ ford.break();
 console.log(ford.speedUS);
 ford.speedUs = 50;
 console.log(ford);
+=======
+console.log(stephen);
+
+stephen.name = 'Stephen';
+stephen.birthYear = 1995;
+console.log(stephen);
+stephen.calcAge();
+console.log(stephen.__proto__);
+console.log(stephen.__proto__ === PersonProto);
+
+const sarah = Object.create(PersonProto);
+sarah.init('Sarah', 2001);
+sarah.calcAge();
+console.log(sarah);
+>>>>>>> 0988de44e818201629d18b5d080c527038805e73
