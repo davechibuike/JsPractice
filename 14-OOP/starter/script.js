@@ -303,15 +303,15 @@ const mike = new Student('mike', 2000, 'Computer Science');
 // mike.introduce();
 // mike.calcAge();
 // mike.upperFirstName();
-console.log(mike.__proto__);
-console.dir(mike.__proto__.__proto__);
-console.dir(Student.prototype.constructor);
+// console.log(mike.__proto__);
+// console.dir(mike.__proto__.__proto__);
+// console.dir(Student.prototype.constructor);
 
 // console.log(mike instanceof Student);
 // console.log(mike instanceof Person);
 
 Student.prototype.constructor = Student;
-console.dir(Student.prototype.constructor);
+// console.dir(Student.prototype.constructor);
 
 /* 
 1. Use a constructor function to implement an Electric Car (called EV) as a CHILD "class" of Car. Besides a make and current speed, the EV also has the current battery charge in % ('charge' property);
@@ -350,16 +350,16 @@ EV.prototype.chargeTo = function (charge) {
 
 EV.prototype.accelerate = function () {
   this.speed += 20;
-  this.charge -= 1;
+  this.charge--;
   console.log(
     `${this.make} going at ${this.speed} km/h, with a charge of ${this.charge}%`
   );
 };
 
 const tesla = new EV('Tesla', 140, 70);
-console.log(tesla);
-tesla.accelerate();
-tesla.break();
-tesla.chargeTo(90);
-console.log(tesla);
-tesla.accelerate();
+// console.log(tesla);
+// tesla.accelerate();
+// tesla.break();
+// tesla.chargeTo(90);
+// console.log(tesla);
+// tesla.accelerate();
