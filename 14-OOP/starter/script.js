@@ -261,6 +261,7 @@ class Car {
   break() {
     this.speed -= 5;
     console.log(`${this.make} going at ${this.speed} Km/h`);
+    return this;
   }
 
   get speedUS() {
@@ -281,3 +282,157 @@ class Car {
 // console.log(ford.speedUS);
 // ford.speedUs = 50;
 // console.log(ford);
+
+/**
+ * Public fields
+ * private fields
+ * public methods
+ * private methods
+ */
+class Account {
+  //! 1) Public fields (instances and not prototype)
+  locale = navigator.language;
+
+  //! 2) Private fields (instances)
+  #movements = [];
+  #pin;
+
+  constructor(owner, currency, pin) {
+    this.owner = owner;
+    this.currency = currency;
+    this.#pin = pin;
+
+    // protected property
+    // this._movements = [];
+    // this.locale = navigator.language;
+
+    console.log(`Thank you for opening an account with us ${this.owner}.`);
+  }
+  //! 3) Public Methods
+  //* Public Interface
+  getMovements() {
+    return this.#movements;
+  }
+
+  deposit(val) {
+    this.#movements.push(val);
+    return this;
+  }
+
+  withdraw(val) {
+    this.deposit(-val);
+    return this;
+  }
+
+  requestLoan(val) {
+    if (this.#approveLoan(val)) {
+      this.deposit(val);
+      console.log(`Loan Approved`);
+      return this;
+    }
+  }
+
+  //! Static methods(not available on prototypes or instance , only on class)
+  static helper() {
+    console.log(`Helper static method`);
+  }
+
+  //! 4) Private methods
+  #approveLoan(val) {
+    return true;
+  }
+}
+
+// const acc1 = new Account('Dave Chibuike', 'USD', 7098);
+
+// acc1.deposit(400);
+// acc1.deposit(4500);
+
+// acc1.withdraw(3000);
+// acc1.withdraw(700);
+
+// console.log(acc1);
+// console.log(acc1.#movements);
+// console.log(acc1.getMovements());
+// console.log(acc1.#pin);
+// Account.helper();
+
+//* Chaining
+// acc1.deposit(200).deposit(400).withdraw(250).requestLoan(25000).withdraw(5000);
+// console.log(acc1.getMovements());
+
+/* 
+1. Use a constructor function to implement an Electric Car (called EV) as a CHILD "class" of Car. Besides a make and current speed, the EV also has the current battery charge in % ('charge' property);
+2. Implement a 'chargeBattery' method which takes an argument 'chargeTo' and sets the battery charge to 'chargeTo';
+3. Implement an 'accelerate' method that will increase the car's speed by 20, and decrease the charge by 1%. Then log a message like this: 'Tesla going at 140 km/h, with a charge of 22%';
+4. Create an electric car object and experiment with calling 'accelerate', 'brake' and 'chargeBattery' (charge to 90%). Notice what happens when you 'accelerate'! HINT: Review the definiton of polymorphism 😉
+DATA CAR 1: 'Tesla' going at 120 km/h, with a charge of 23%
+GOOD LUCK 😀
+*/
+
+class EV extends Car {
+  constructor(make, speed, charge) {
+    super(make, speed);
+    this.charge = charge;
+  }
+
+  chargeBattery(charge) {
+    this.charge = charge;
+  }
+
+  accelerate() {
+    this.speed += 20;
+    this.charge--;
+    console.log(
+      `${this.make} going at ${this.speed} km/h, with a charge of ${this.charge}%`
+    );
+  }
+}
+
+// const teslaa = new EV('Tesla', 200, 80);
+// console.log(teslaa);
+// teslaa.accelerate();
+// teslaa.chargeBattery(300);
+// console.log(teslaa);
+
+///////////////////////////////////////
+// Coding Challenge #4
+
+/* 
+1. Re-create challenge #3, but this time using ES6 classes: create an 'EVCl' child class of the 'CarCl' class
+2. Make the 'charge' property private;
+3. Implement the ability to chain the 'accelerate' and 'chargeBattery' methods of this class, and also update the 'brake' method in the 'CarCl' class. They experiment with chining!
+DATA CAR 1: 'Rivian' going at 120 km/h, with a charge of 23%
+GOOD LUCK 😀
+*/
+
+// class CarCl extends Carr {}
+
+class EVCl extends Car {
+  #charge;
+
+  constructor(make, speed, charge) {
+    super(make, speed);
+    this.#charge = charge;
+  }
+
+  accelerate() {
+    this.speed += 20;
+    this.#charge--;
+    console.log(
+      `${this.make} going at ${this.speed} km/h, with a charge of ${
+        this.#charge
+      }%`
+    );
+    return this;
+  }
+
+  chargeBattery(charge) {
+    this.#charge = charge;
+    return this;
+  }
+}
+
+const rivian = new EVCl('Rivian', 120, 23);
+// rivian.accelerate().chargeBattery(90).break().accelerate();
+console.log(rivian);
