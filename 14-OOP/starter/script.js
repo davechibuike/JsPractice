@@ -18,8 +18,8 @@ const dave = new Person('dave', 1995);
 // 3. {} is linked to prototype
 // 4. function automatically returns {}
 
-const matilda = new Person('matilda', 2010);
-const becham = new Person('becham', 1992);
+// const matilda = new Person('matilda', 2010);
+// const becham = new Person('becham', 1992);
 // console.log(dave, matilda, becham);
 
 // const jay = 'jay';
