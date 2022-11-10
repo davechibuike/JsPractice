@@ -363,3 +363,57 @@ const tesla = new EV('Tesla', 140, 70);
 // tesla.chargeTo(90);
 // console.log(tesla);
 // tesla.accelerate();
+
+//* Inheritance with ES6 class
+class PersonClI {
+  constructor(fullName, birthYear) {
+    this.fullName = fullName;
+    this.birthYear = birthYear;
+    this.currentYear = new Date().getFullYear();
+  }
+
+  //* Methods would be added to .prototype property
+  calcAge() {
+    const age = this.currentYear - this.birthYear;
+    console.log(age);
+    return age;
+  }
+
+  greet() {
+    console.log(`Hey ${this.fullName}`);
+  }
+
+  get age() {
+    return 2023 - this.birthYear;
+  }
+
+  //? Set a property that already exist
+  set fullName(name) {
+    if (name.includes(' ')) return (this._fullName = name);
+    else alert(`${name} is not a full name.`);
+  }
+
+  get fullName() {
+    return this._fullName;
+  }
+
+  static hey() {
+    console.log('hello there 👋🏼');
+  }
+}
+
+class StudentCli extends PersonClI {
+  constructor(fullName, birthYear, course) {
+    //* Always needs to happen first
+    super(fullName, birthYear);
+    this.course = course;
+  }
+
+  introduce() {
+    console.log(`My name is ${this.fullName}, and i study ${this.course}.`);
+  }
+}
+
+const martha = new StudentCli('Martha Wills', 2005, 'Finance');
+console.log(martha);
+martha.introduce();
