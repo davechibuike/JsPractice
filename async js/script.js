@@ -126,4 +126,6 @@ const getCountryData = function (country) {
     });
 };
 
-getCountryData('ghana');
+btn.addEventListener('click', function () {
+  getCountryData('ghana');
+});
