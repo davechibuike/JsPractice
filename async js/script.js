@@ -3,6 +3,38 @@
 const btn = document.querySelector('.btn-country');
 const countriesContainer = document.querySelector('.countries');
 
+let check = true;
+
+//  Render country
+const renderCountry = function (data, className = '') {
+  const html = `
+        <article class="country ${className}">
+            <img class="country__img" src="${data.flags.png}" />
+          <div class="country__data">
+              <h3 class="country__name">${Object.values(data.name)[0]}</h3>
+              <h4 class="country__region">${data.region}</h4>
+              <p class="country__row"><span>👫</span>${(
+                data.population / 1000000
+              ).toFixed(1)}</p>
+              <p class="country__row"><span>🗣️</span>${Object.values(
+                data.languages
+              )}</p>
+              <p class="country__row"><span>💰</span>${
+                Object.values(data.currencies)[0].name
+              }</p>
+            </div>
+          </article>
+
+    `;
+
+  countriesContainer.insertAdjacentHTML('beforeend', html);
+};
+
+// Error msg
+const renderError = function (msg) {
+  countriesContainer.insertAdjacentText('beforeend', msg);
+};
+
 // ///////////////////////////////////////
 // // ! Using AJAX OLD METHOD
 // const getCountryData = function (...countries) {
@@ -39,31 +71,6 @@ const countriesContainer = document.querySelector('.countries');
 //     });
 //   }
 // };
-
-const renderCountry = function (data, className = '') {
-  const html = `
-        <article class="country ${className}">
-            <img class="country__img" src="${data.flags.png}" />
-          <div class="country__data">
-              <h3 class="country__name">${Object.values(data.name)[0]}</h3>
-              <h4 class="country__region">${data.region}</h4>
-              <p class="country__row"><span>👫</span>${(
-                data.population / 1000000
-              ).toFixed(1)}</p>
-              <p class="country__row"><span>🗣️</span>${Object.values(
-                data.languages
-              )}</p>
-              <p class="country__row"><span>💰</span>${
-                Object.values(data.currencies)[0].name
-              }</p>
-            </div>
-          </article>
-
-    `;
-
-  countriesContainer.insertAdjacentHTML('beforeend', html);
-  countriesContainer.style.opacity = 1;
-};
 
 // const getCountryAndNeighbor = function (country) {
 //   // AJAX call country 1
@@ -111,19 +118,40 @@ const renderCountry = function (data, className = '') {
 // };
 
 //  Using arrow function
+//
+
+// Get country data
 const getCountryData = function (country) {
+  if (!check) return;
   fetch(`https://restcountries.com/v3.1/name/${country}`)
-    .then(responce => responce.json())
+    .then(responce => {
+      if (!responce.ok) {
+        throw new Error(`Country not Found (${responce.status})`);
+      }
+      return responce.json();
+    })
     .then(data => {
       renderCountry(data[0]);
 
       const neighbor = data[0].borders?.[0];
       if (!neighbor) return;
 
-      return fetch(`https://restcountries.com/v3.1/alpha/${neighbor}`)
-        .then(responce => responce.json())
-        .then(data => renderCountry(data[0], 'neighbour'));
+      return fetch(`https://restcountries.com/v3.1/alpha/${neighbor}`);
+    })
+    .then(responce => responce.json())
+    .then(data => renderCountry(data[0], 'neighbour'))
+    .catch(err => {
+      console.log(`${err.message}`);
+      renderError(`Something Went Wrong. ${err.message}. Try again!`);
+    })
+    .finally(() => {
+      countriesContainer.style.opacity = 1;
     });
 };
 
-getCountryData('ghana');
+btn.addEventListener('click', function () {
+  getCountryData('togo');
+  check = false;
+});
+
+// getCountryData('hjhjhjj');
