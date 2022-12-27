@@ -278,10 +278,10 @@ const getCountryData = function (country) {
 };
 
 btn.addEventListener('click', function () {
-  getCountryData('ghana');
+  getCountryData('usa');
   check = false;
 });
-getCountryData('new zealand');
+// getCountryData('new zealand');
 
 ///////////////////////////////////////
 // Coding Challenge #1
@@ -304,3 +304,41 @@ TEST COORDINATES 2: 19.037, 72.873
 TEST COORDINATES 2: -33.933, 18.474
 GOOD LUCK 😀
 */
+
+// Auth 	132638067048793371710x67900
+
+navigator.geolocation.getCurrentPosition(
+  position => {
+    const { latitude, longitude } = position.coords;
+    // whereAmI(latitude, longitude);
+  },
+  () => console.log("Can't Access Your Location")
+);
+
+const whereAmI = function (lat, lng) {
+  fetch(
+    `https://geocode.xyz/${lat},${lng}?geoit=json&auth=132638067048793371710x67900`
+  )
+    .then(responce => {
+      if (!responce.ok) {
+        throw new Error(`Wahala! ${responce.status.code}`);
+      }
+      return responce.json();
+    })
+    .then(data => {
+      console.log(`You're in ${data.city}, ${data.country}.`);
+      getCountryData(data.country);
+    })
+    .catch(err => {
+      console.log(err.message);
+      renderError(`${err.message} ! Try again`);
+    });
+};
+
+// 6.4487424
+// 3.4504704
+
+// whereAmI(44.5, -89.5);
+// whereAmI(52.508, 13.381);
+// whereAmI(19.037, 72.873);
+// whereAmI(-33.933, 18.474);
