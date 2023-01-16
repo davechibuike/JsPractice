@@ -355,18 +355,18 @@ const whereAmI = function (lat, lng) {
 
 // Building a Promise
 
-const lotteryPromise = new Promise(function (resolve, reject) {
-  console.log('Live Draw Loading...');
-  setTimeout(() => {
-    if (Math.random() >= 0.5) {
-      resolve('You Win 💰');
-    } else {
-      reject(new Error('You lost your money 💩'));
-    }
-  }, 2000);
-});
+// const lotteryPromise = new Promise(function (resolve, reject) {
+//   console.log('Live Draw Loading...');
+//   setTimeout(() => {
+//     if (Math.random() >= 0.5) {
+//       resolve('You Win 💰');
+//     } else {
+//       reject(new Error('You lost your money 💩'));
+//     }
+//   }, 2000);
+// });
 
-lotteryPromise.then(res => console.log(res)).catch(err => console.error(err));
+// lotteryPromise.then(res => console.log(res)).catch(err => console.error(err));
 
 // Promisifying setTimeout
 // const wait = function (seconds) {
@@ -388,3 +388,20 @@ lotteryPromise.then(res => console.log(res)).catch(err => console.error(err));
 //     return wait(1);
 //   })
 //   .then(() => console.log('4 second passed'));
+
+navigator.geolocation.getCurrentPosition(
+  position => console.log(position),
+  err => console.log(err)
+);
+
+// promise
+const getLocation = function () {
+  return new Promise(function (resolve, reject) {
+    navigator.geolocation.getCurrentPosition(
+      position => resolve(position),
+      err => reject(err)
+    );
+  });
+};
+
+getLocation().then(pos => console.log(pos));
